@@ -1,0 +1,29 @@
+{
+    "name": "csci-e-114-final-project-nduy1234",
+    "version": "1.0.0",
+    "description": "project",
+    "keywords": [
+        "gatsby"
+    ],
+    "scripts": {
+        "develop": "gatsby develop",
+        "start": "gatsby develop",
+        "build": "gatsby build",
+        "serve": "gatsby serve",
+        "clean": "gatsby clean"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "gatsby": "^5.13.3",
+        "gatsby-plugin-image": "^3.13.1",
+        "gatsby-plugin-sharp": "^5.13.1",
+        "gatsby-remark-images": "^7.13.1",
+        "gatsby-source-filesystem": "^5.13.1",
+        "gatsby-transformer-json": "^5.13.1",
+        "gatsby-transformer-remark": "^6.13.1",
+        "gatsby-transformer-sharp": "^5.13.1",
+        "node-fetch": "^2.7.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}
