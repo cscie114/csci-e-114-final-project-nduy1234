@@ -1,46 +1,52 @@
-/* require("dotenv").config();
+require("dotenv").config();
 const fetch = require("node-fetch"); 
 
-
+const movieIDs = {
+    "movie1": "tt21692408", 
+    "movie2": "tt15239678", 
+    "movie3": "tt8521778", 
+    "movie4": "tt15009428"
+  };
 exports.sourceNodes = async ({
     actions,
     createContentDigest,
     createNodeId,
   }) => {
-   const { createNode } = actions
+   const { createNode } = actions;
    try {
-   const movieData= await getMovie();
-   movieData.data.forEach(movie =>{
+   for (const movieID in movieIDs) {
+   const movieData = await getMovie(movieIDs[movieID]);
         createNode({
-        ...movie,
-        id: createNodeId(),
+        ...movieData,
+        id: createNodeId(`${movieData.imdbID}`),
         parent: null,
         children: [],
         internal: {
             type: "Movie",   
-            contentDigest: createContentDigest(movie),
+            contentDigest: createContentDigest(movieData),
         },
         });
-    });
-    } catch (error) {
-    console.error('Error', error);
-    }
-    return;
-    }
- 
-  async function getMovie() {
-  const NODE_TYPE = `Movie`; 
-    try { 
-        const url = "http://www.omdbapi.com/?i=tt21692408&apikey=" + process.env.OMDB_API_KEY;     
-        const movieData = await fetch(url, {
-            duration: "1d",
-            type: "json",   
-    });  
-    return movieData;                 
-    } catch (error) {   
-        console.error('Error', error);   
-        console.log(error);       
-    }   
-    };*/
+        }
+} catch (error) {
+  console.error('Error', error);
+}
+}
+async function getMovie(imdbID) {
+        try { 
+            const url = `http://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.OMDB_API_KEY}`;     
+            const response = await fetch(url);
+            if (!response.ok) {
+            throw new Error(`Error! status: ${response.status}`);
+            }
+            const movieData = await response.json();
+            return movieData;
+          } catch (error) {   
+            console.error('Error', error);   
+          }   
+        }
+
+  
 
 
+        
+        
